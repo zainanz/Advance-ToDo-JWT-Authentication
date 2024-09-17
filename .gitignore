@@ -1,0 +1,10 @@
+# Ignore node_modules in frontend
+my-app/node_modules/
+
+# Ignore logs in frontend
+my-app/build/
+
+# Ignore backend specific directories
+test-components/log/
+test-components/tmp/
+
