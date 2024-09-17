@@ -6,12 +6,15 @@ import {store} from './app/store/store.js'
 import { Outlet } from 'react-router-dom';
 function App() {
   return (
+    <div className="black-radial-back" style={{height:'100vh', position:'relative', overflow: 'hidden', boxSizing: 'border-box'}}>
+
     <Provider store={store}>
       <div>Nav Bar Goes here</div>
-      <main>
+      <main style={{height:'100%', overflow: 'auto'}} className="">
         <Outlet/>
       </main>
     </Provider>
+    </div>
   );
 }
 

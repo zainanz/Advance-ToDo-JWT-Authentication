@@ -22,3 +22,8 @@
 .form-cover > input[type='submit']{
  margin-top: 10px;
 }
+
+
+.black-radial-back {
+  background-image: radial-gradient(darkgray, black, rgb(31, 29, 29));
+}
