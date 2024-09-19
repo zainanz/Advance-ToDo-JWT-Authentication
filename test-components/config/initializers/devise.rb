@@ -25,7 +25,7 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
   config.jwt do |jwt|
-    jwt.secret = Rails.application.credentials.fetch(:secret_key_base)
+    jwt.secret = Rails.application.credentials.fetch(:jwt_key_base)
     jwt.dispatch_requests = [
       ['POST', %r{^/login$}]
     ]
@@ -34,6 +34,7 @@ Devise.setup do |config|
     ]
     jwt.expiration_time = 30.minutes.to_i
   end
+
 
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
 

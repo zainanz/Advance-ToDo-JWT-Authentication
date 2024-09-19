@@ -13,15 +13,16 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App/>}>
       <Route index element={<Form />} />
+      {/* <Route path="todos" element={} /> */}
     </Route>
   )
 );
 
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <RouterProvider router={router}>
     </RouterProvider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -2,11 +2,16 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import Cookies from 'js-cookie';
 
 const initialState = {
+  user:{
+
+  },
   isLoggedIn: false,
   token: null, // Add token to state
   status: 'idle', // Add status for async operations
   error: null
 }
+
+
 
 export const login = createAsyncThunk('auth/login', async (userData) => {
   const response = await fetch("http://localhost:3000/login", {
@@ -24,7 +29,7 @@ export const login = createAsyncThunk('auth/login', async (userData) => {
 
   const data = await response.json();
   Cookies.set('token', data.token);
-  return data.token; // Return the token to the fulfilled action
+  return data; // Return the token to the fulfilled action
 });
 
 const authSlice = createSlice({
@@ -45,8 +50,9 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         console.log(action)
+        state.user = action.payload.user;
         state.isLoggedIn = true;
-        state.token = action.payload; // Set the token from the fulfilled action payload
+        state.token = action.payload.token; // Set the token from the fulfilled action payload
         state.status = 'idle'; // Reset the status
         console.log("Login successful", action.payload);
       })
