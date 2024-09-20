@@ -6,18 +6,23 @@ import { login } from "../../app/store/authSlice";
 import Frm from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
-
+import { useNavigate } from "react-router-dom";
 //logic
 
 
 
 
 export default function Form(){
+
+  // Initialization
+
   const [seconds, setSeconds] = useState(3);
-  const [countdownStarted, setCountdownStarted] = useState(false);
   const dispatch = useDispatch();
   const [userData, setUserData] = useState({email: "", password: ""});
   const auth = useSelector(state => state.auth);
+  const navigate = useNavigate();
+
+  // Funcs
   const handleFormSubmit = (e) => {
     e.preventDefault();
     dispatch(login(userData));
@@ -31,33 +36,30 @@ export default function Form(){
     console.log(userData);
   }
 
-  useEffect( ()=> {
-    let interval;
-    if(auth.isLoggedIn && !countdownStarted){
-      interval = setInterval(() => {
-      setSeconds( prev => prev--);
-    }, 1000);
-    }
+  useEffect(() => {
+      if(auth.isLoggedIn){
+        const interval = setInterval(() => {
+        setSeconds( prev => prev - 1);
+      }, 1000);
+      const timeout = setTimeout(() => {
+        navigate("/dashboard")
+      }, 3000);
+      return () => {
+        clearTimeout(timeout);
+        clearInterval(interval);
+      };
+      }
+    }, [auth.isLoggedIn]);
 
-    return( () => clearInterval(interval))
-  }, [auth.isLoggedIn, countdownStarted])
- //view
 
-  if (auth.isLoggedIn){
+  if (auth.isLoggedIn) {
     return (
       <div>
-
-      <h1> Welcome back, {userData.email}</h1>
-      <h2>Redirecting in:</h2>
-        <h3>
-          {
-          seconds
-          }
-        </h3>
+        <h1>Welcome back, {auth.user.username}</h1>
+        <h2>Redirecting in: {seconds}</h2>
       </div>
-    )
+    );
   }
-
 
   return (
     <div style={{height: '100%'}} className="d-flex justify-content-center align-items-center">
