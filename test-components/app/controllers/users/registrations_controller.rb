@@ -1,5 +1,4 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  respond_to :json
 
   def respond_with(resource, _opts = {})
     if request.method == "POST" && resource.persisted?

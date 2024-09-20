@@ -2,8 +2,10 @@ import { useSelector } from "react-redux"
 export default function ShowTodo(){
   const todos = useSelector(state => state.todo);
   return (
-    <div>{
+    <div>
+      {
       todos.todos
-    }</div>
+      }
+    </div>
   )
 }

@@ -1,21 +1,26 @@
 import "../../../color.css"
 import { useState, useEffect } from "react"
 import { useDispatch } from "react-redux";
-import { loadtodo } from "../../../../app/store/todoSlice";
+import { loadtodo, addTodo } from "../../../../app/store/todoSlice";
 
 
 export default function AddTodo(){
 
 
 
-  const [todo, setTodo] = useState(0);
+  const [todo, setTodo] = useState("");
   const dispatch = useDispatch();
 
 
+  const handleTodo = (e) => {
+    console.log(e.target.value)
+    setTodo(e.target.value)
+  }
 
   const handleAddSubmit = (e) => {
     e.preventDefault();
-    console.log("Submit")
+    if(todo === '') return
+    dispatch(addTodo(todo))
   }
 
   useEffect( () => {
@@ -25,7 +30,7 @@ export default function AddTodo(){
   return (
     <div>
       <form onSubmit={handleAddSubmit}>
-        <input type="text" />
+        <input onChange={handleTodo} value={todo}/>
         <input type="submit" value="Add" />
       </form>
     </div>
