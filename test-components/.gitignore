@@ -33,3 +33,10 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+/config/credentials/development.key
+# Ignore master key for Rails credentials
+config/master.key
+
+# Ignore environment-specific credentials files
+config/credentials/*.enc
