@@ -42,7 +42,7 @@ export default function Form(){
         setSeconds( prev => prev - 1);
       }, 1000);
       const timeout = setTimeout(() => {
-        navigate("/dashboard")
+        navigate("/todos")
       }, 3000);
       return () => {
         clearTimeout(timeout);
