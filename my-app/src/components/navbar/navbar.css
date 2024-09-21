@@ -1,5 +1,10 @@
 .navbar{
-  /* background-color: rgb(32, 32, 32); */
-  background-color: beige;
+
   height: 50px;
+}
+
+
+.logout-btn{
+  color: white;
+  border-radius: 5px;
 }

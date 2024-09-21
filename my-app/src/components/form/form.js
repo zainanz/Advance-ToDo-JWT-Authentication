@@ -29,33 +29,32 @@ export default function Form(){
   }
   const handlePasswordInput = (e) => {
     setUserData( prev => ({...prev, ['password']:e.target.value}));
-    console.log(userData);
   }
   const handleEmailInput = (e) => {
     setUserData( prev => ({...prev, ['email']:e.target.value}));
-    console.log(userData);
   }
 
   useEffect(() => {
       if(auth.isLoggedIn){
+        console.log(auth);
         const interval = setInterval(() => {
         setSeconds( prev => prev - 1);
       }, 1000);
       const timeout = setTimeout(() => {
-        navigate("/dashboard")
+        navigate("/todos")
       }, 3000);
       return () => {
         clearTimeout(timeout);
         clearInterval(interval);
       };
       }
-    }, [auth.isLoggedIn]);
+    }, [auth.isLoggedIn, navigate]);
 
 
   if (auth.isLoggedIn) {
     return (
       <div>
-        <h1>Welcome back, {auth.user.username}</h1>
+        <h1>Welcome back, {auth.user[0]}</h1>
         <h2>Redirecting in: {seconds}</h2>
       </div>
     );

@@ -2,7 +2,6 @@
 require 'jwt'
 
 class Users::SessionsController < Devise::SessionsController
-  skip_before_action :verify_authenticity_token, only: [:create, :verify]
   respond_to :json
 
   def verify
@@ -18,9 +17,7 @@ class Users::SessionsController < Devise::SessionsController
 
 
     if user&.valid_password?(params[:password])
-      # Generate JWT token
       token = JWT.encode({ user_id: user.id, exp: 24.hours.from_now.to_i }, Rails.application.credentials.jwt_key_base)
-      # Send token to the frontend
       render json: { token: token, message: 'Logged in successfully', user: [user.username, user.email] }, status: :ok
     else
       render json: { error: "Invalid username or password" }, status: :unauthorized
