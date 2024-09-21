@@ -22,6 +22,7 @@ export default function AddTodo(){
     e.preventDefault();
     if(todo === '') return
     dispatch(addTodo(todo))
+    setTodo("")
   }
 
   useEffect( () => {

@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import Cookies from 'js-cookie';
 
+
 const initialState = {
   user:{
 
@@ -15,6 +16,7 @@ const initialState = {
 
 export const checkUser = createAsyncThunk('auth/checkUser', (_, {dispatch}) => {
   const token =  Cookies.get('token');
+  console.log("inside")
   if (token){
       fetch("http://localhost:3000/verify/user", {
             method:"POST",
@@ -22,8 +24,16 @@ export const checkUser = createAsyncThunk('auth/checkUser', (_, {dispatch}) => {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${token}`,
             }
-      }).then(response => response.json())
+      }).then(response => {
+        console.log("hello")
+        if (response.ok){
+          return response.json()
+        } else {
+          dispatch(logout())
+        }
+      })
       .then(data => {
+        console.log("In the data")
         data = JSON.parse(data.message);
         dispatch(setUser(data));
       })

@@ -19,7 +19,9 @@
 }
 /* card-color */
 .card-color {
-  background-color: #A5B68D;
+  background-color: rgba(165, 182, 141, .2);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .text-color{

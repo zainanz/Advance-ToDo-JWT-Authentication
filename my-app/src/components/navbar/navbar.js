@@ -1,14 +1,23 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "./navbar.css"
 import "../color.css"
+import { logout } from "../../app/store/authSlice";
+import { useNavigate } from "react-router-dom"
 function Navbar(){
+  const auth = useSelector(state => state.auth)
+  const navigate = useNavigate();
   const userdata = useSelector( state => state.auth)
+  const dispatch = useDispatch();
+  const handleLogOut = () => {
+    navigate("/")
+    dispatch(logout())
+  }
   return (
-    <div className="navbar d-flex justify-content-button px-5 secondary-bg">
-      <p className="fw-bold fs-5 important-color">{userdata.user.username || ""}</p>
+    <div className=" align-items-center d-flex justify-content-between align-items-start px-5 secondary-bg">
+      <p className="fw-bold fs-5 important-color">{userdata.user[0] || ""}</p>
       {
        userdata.isLoggedIn ?
-          (<button className="btn btn-secondary important-bg">
+          (<button onClick={handleLogOut} className="logout-btn important-bg">
             Log out
           </button>) : ""
 
