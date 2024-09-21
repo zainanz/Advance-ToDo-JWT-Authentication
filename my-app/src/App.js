@@ -15,7 +15,7 @@ function App() {
   }, []);
 
   return (
-    <div className="black-radial-back" style={{height:'100vh', position:'relative', overflow: 'hidden', boxSizing: 'border-box'}}>
+    <div className="primary-bg" style={{ position:'relative', overflow: 'hidden', boxSizing: 'border-box'}}>
 
       {
         location.pathname === "/" ? "" : <Navbar/>

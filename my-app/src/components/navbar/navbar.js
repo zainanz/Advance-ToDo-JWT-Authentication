@@ -4,7 +4,7 @@ import "../color.css"
 function Navbar(){
   const userdata = useSelector( state => state.auth)
   return (
-    <div className="navbar d-flex justify-content-button px-5 primary-bg">
+    <div className="navbar d-flex justify-content-button px-5 secondary-bg">
       <p className="fw-bold fs-5 important-color">{userdata.user.username || ""}</p>
       {
        userdata.isLoggedIn ?

@@ -5,11 +5,23 @@
   background-color: #4a4e69;
 }
 
-
+/* bg color */
 .primary-bg{
   background-color: #fefae0;
 }
 
 .secondary-bg{
   background-color: #e9edc9;
+}
+
+.main-bg{
+  background-color: #EDE8DC;
+}
+/* card-color */
+.card-color {
+  background-color: #A5B68D;
+}
+
+.text-color{
+  color: #E7CCCC
 }
