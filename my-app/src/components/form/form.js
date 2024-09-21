@@ -54,7 +54,7 @@ export default function Form(){
   if (auth.isLoggedIn) {
     return (
       <div>
-        <h1>Welcome back, {auth.user[0]}</h1>
+        <h1>Welcome back, {auth.user.username}</h1>
         <h2>Redirecting in: {seconds}</h2>
       </div>
     );

@@ -14,7 +14,7 @@ function Navbar(){
   }
   return (
     <div className=" align-items-center d-flex justify-content-between align-items-start px-5 secondary-bg">
-      <p className="fw-bold fs-5 important-color">{userdata.user[0] || ""}</p>
+      <p className="fw-bold fs-5 important-color">{userdata.user.username}</p>
       {
        userdata.isLoggedIn ?
           (<button onClick={handleLogOut} className="logout-btn important-bg">
