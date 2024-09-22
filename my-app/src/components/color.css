@@ -27,3 +27,11 @@
 .text-color{
   color: #E7CCCC
 }
+
+
+/* background */
+.background-svg{
+  background-image: url("../images/background.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
