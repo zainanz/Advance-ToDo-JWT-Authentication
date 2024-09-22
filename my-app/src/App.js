@@ -18,7 +18,7 @@ function App() {
   }, []);
 
   return (
-    <div className="primary-bg" style={{ minHeight:'100vh', position:'relative', overflow: 'hidden', boxSizing: 'border-box'}}>
+    <div className="background-svg" style={{ minHeight:'100vh', position:'relative', overflow: 'hidden', boxSizing: 'border-box'}}>
 
       {
         location.pathname === "/" ? "" : <Navbar/>

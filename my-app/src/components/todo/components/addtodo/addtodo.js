@@ -30,7 +30,7 @@ export default function AddTodo(){
   }, [])
 
   return (
-    <div className="d-flex justify-content-center py-5 primary-bg">
+    <div className="d-flex justify-content-center py-5">
       <form className="" onSubmit={handleAddSubmit}>
         <input className="rounded px-2 todo-content" placeholder="Make your bed.." style={{width:"500px", height: "50px"}} onChange={handleTodo} value={todo}/>
         <input className="mx-3 text-white fw-bolder border-none rounded" style={{backgroundColor:"#A5B68D", width:"90px", height: "49px"}} type="submit" value="Add" />

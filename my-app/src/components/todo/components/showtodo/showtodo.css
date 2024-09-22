@@ -13,22 +13,76 @@
 
 }
 
+@keyframes removetodo {
+  0%{
+    z-index: 1;
+  }
+  5%{
+    filter: blur(1px);
+
+  }
+  20%{
+    filter: blur(50px);
+  }
+  100%{
+    transform: translate(-500%, -50%);
+  }
+}
+
+.remove-todo {
+  animation: removetodo 0.4s ease-in;
+}
+
+@keyframes slide{
+  0% {
+    transform: translateX(-100%);
+
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.slide-effect{
+  animation: slide 0.5s ease-in-out;
+}
 
 .completed-todo {
-  position: fixed;
-  left: 0%;
-  top:55%;
-  transform: translateY(-50%);
   height: 500px;
   width: 400px;
 
 }
 
-.todo-graph {
+.hidden {
+  position: absolute;
+  transform: translateX(-500%);
+  transition: all 0.2s ease-in-out;
+
+}
+
+.appear{
+  transform: translateX(0%);
+}
+
+.appear:nth-child(1){
   position: fixed;
-  right: 0%;
-  top:55%;
-  transform: translateY(-50%);
+  left: 0px;
+  z-index: 3;
+
+}
+
+.appear:nth-child(2){
+
+}
+
+.appear:nth-child(3) {
+  position: fixed;
+  right: 0px;
+
+}
+
+
+.todo-graph {
   height: 500px;
   width: 400px;
 }
