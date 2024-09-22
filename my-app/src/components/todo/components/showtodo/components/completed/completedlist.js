@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 
 export default function CompletedList({data}){
+  if (data.length < 1) return
  return ( <div className="completed-todo overflow-scroll mx-3">
         <h5 style={{position:'sticky'}}className="sofadi-one-regular text-center m-2 mb-4">Todos History</h5>
         <div>

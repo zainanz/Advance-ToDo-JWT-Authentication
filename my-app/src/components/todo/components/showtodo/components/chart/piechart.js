@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 export default function PieChart(){
   const todo = useSelector(state => state.todo);
 
+
   const [chartData, setChartData] = useState({
     labels: ["Completed", "Pending"],
     datasets: [
@@ -30,7 +31,7 @@ export default function PieChart(){
         datasets: [
           {
             label: "Users Gained ",
-            data: [todo.todos.length, todo.todos.filter( todo => !todo.completed).length],
+            data:  [ todo.todos.filter( todo => todo.completed).length, todo.todos.filter( todo => !todo.completed).length],
             backgroundColor: [
               "#588157",
               "#e9edc9",
@@ -45,6 +46,7 @@ export default function PieChart(){
       })
     }, [todo.todos])
 
+  if (todo.todos.length < 1) return
   return (
     <div className="mx-3 todo-graph">
           <h5 className="my-1 sofadi-one-regular text-center">Graph</h5>
