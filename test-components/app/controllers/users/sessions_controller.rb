@@ -9,7 +9,7 @@ class Users::SessionsController < Devise::SessionsController
     payload = JWT.decode(token, Rails.application.credentials.jwt_key_base)
     user = User.find(payload.first['user_id'])
 
-    render json: {message: "#{user.to_json()}"}
+    render json: { message: user.to_json() }
   end
 
   def create
@@ -18,7 +18,7 @@ class Users::SessionsController < Devise::SessionsController
 
     if user&.valid_password?(params[:password])
       token = JWT.encode({ user_id: user.id, exp: 24.hours.from_now.to_i }, Rails.application.credentials.jwt_key_base)
-      render json: { token: token, message: 'Logged in successfully', user: [user.username, user.email] }, status: :ok
+      render json: { token: token, user: user.to_json() }, status: :ok
     else
       render json: { error: "Invalid username or password" }, status: :unauthorized
     end
