@@ -80,7 +80,7 @@ const authSlice = createSlice({
         state.status = 'pending';
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.user = action.payload.user;
+        state.user = JSON.parse(action.payload.user);
         state.isLoggedIn = true;
         state.token = action.payload.token;
         state.status = 'idle';
