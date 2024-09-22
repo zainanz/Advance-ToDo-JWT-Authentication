@@ -20,7 +20,7 @@ export default function Todo(){
   if (!authCheck) return (<h1>Loading</h1>)
   return (
     <div>
-      <h1 className="text-center my-5 sofadi-one-regular"> Manage your todos now </h1>
+      <h1 className="text-center my-5 sofadi-one-regular"> Manage your daily tasks </h1>
       <AddTodo/>
       <ShowTodo/>
     </div>
