@@ -48,7 +48,7 @@ export default function Form(){
         clearInterval(interval);
       };
       }
-    }, [auth.isLoggedIn, navigate]);
+    }, [auth.isLoggedIn]);
 
 
   if (auth.isLoggedIn) {

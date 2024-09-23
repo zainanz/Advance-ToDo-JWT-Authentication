@@ -9,8 +9,8 @@ function Navbar(){
   const userdata = useSelector( state => state.auth)
   const dispatch = useDispatch();
   const handleLogOut = () => {
-    navigate("/")
     dispatch(logout())
+    navigate("/")
   }
   return (
     <div className=" align-items-center d-flex justify-content-between align-items-start px-5 secondary-bg">

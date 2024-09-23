@@ -3,13 +3,10 @@ require 'jwt'
 
 class Users::SessionsController < Devise::SessionsController
   respond_to :json
+  before_action :retreive_user, only: [:verify]
 
   def verify
-    token = extract_token
-    payload = JWT.decode(token, Rails.application.credentials.jwt_key_base)
-    user = User.find(payload.first['user_id'])
-
-    render json: { message: user.to_json() }
+    render json: { message: @user.to_json() }
   end
 
   def create
