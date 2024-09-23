@@ -30,7 +30,7 @@ export default function PieChart(){
         labels: ["Completed", "Pending"],
         datasets: [
           {
-            label: "Users Gained ",
+            label: "Tasks Stats",
             data:  [ todo.todos.filter( todo => todo.completed).length, todo.todos.filter( todo => !todo.completed).length],
             backgroundColor: [
               "#588157",

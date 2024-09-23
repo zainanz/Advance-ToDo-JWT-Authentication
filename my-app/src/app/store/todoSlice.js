@@ -63,7 +63,6 @@ export const addTodo = createAsyncThunk("todo/addTodo", async (content, {dispatc
 
 
 const initialState = {
-  isRendering: true,
   todos: [
 
   ]

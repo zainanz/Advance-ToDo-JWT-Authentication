@@ -15,9 +15,11 @@ const initialState = {
 
 
 export const checkUser = createAsyncThunk('auth/checkUser', (_, {dispatch}) => {
+  console.log("came here")
   const token =  Cookies.get('token');
-  console.log("inside")
+  console.log(token)
   if (token){
+    console.log(token)
       fetch("http://localhost:3000/verify/user", {
             method:"POST",
             headers: {

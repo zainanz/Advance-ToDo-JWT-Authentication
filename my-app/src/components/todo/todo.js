@@ -12,12 +12,12 @@ export default function Todo(){
   const auth = useSelector(state => state.auth)
   useEffect( () => {
     if(!auth.isLoggedIn){
+      console.log(auth)
       navigate("/")
     } else {
       setAuthCheck(true);
     }
   }, [])
-  if (!authCheck) return (<h1>Loading</h1>)
   return (
     <div>
       <h1 className="text-center my-5 sofadi-one-regular"> Manage your daily tasks </h1>
