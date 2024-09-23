@@ -2,7 +2,7 @@
 import "./form.css"
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { login } from "../../app/store/authSlice";
+import { login, signup } from "../../app/store/authSlice";
 import Frm from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
@@ -18,20 +18,29 @@ export default function Form(){
 
   const [seconds, setSeconds] = useState(3);
   const dispatch = useDispatch();
-  const [userData, setUserData] = useState({email: "", password: ""});
+  const [userData, setUserData] = useState({email: "", password: "", username: ""});
   const auth = useSelector(state => state.auth);
   const navigate = useNavigate();
-
+  const [signupForm, setSignupForm] = useState(false);
   // Funcs
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    dispatch(login(userData));
+    if(signupForm){
+      console.log("singup")
+      dispatch(signup(userData))
+    } else {
+      console.log("login")
+      dispatch(login(userData));
+    }
   }
-  const handlePasswordInput = (e) => {
-    setUserData( prev => ({...prev, ['password']:e.target.value}));
-  }
-  const handleEmailInput = (e) => {
-    setUserData( prev => ({...prev, ['email']:e.target.value}));
+  // const handlePasswordInput = (e) => {
+  //   setUserData( prev => ({...prev, ['password']:e.target.value}));
+  // }
+  const handleUserInput = (e) => {
+    console.log(e.target)
+    console.log(userData);
+
+    setUserData( prev => ({...prev, [e.target.getAttribute("name")]:e.target.value}));
   }
 
   useEffect(() => {
@@ -72,23 +81,53 @@ export default function Form(){
         <h5>fulfill your <span  className="sofadi-one-regular fs-3" style={{ padding: "0px 10px", backgroundColor: "#CEDF9F"}}>dreams</span></h5>
       </div>
       <div>
-        <h3 className="text-center playwrite-de-grund ls-5 my-5">Log in to continue</h3>
-        <Frm onSubmit={handleFormSubmit} className="form-container border p-5">
-          <Frm.Group className="mb-3" controlId="formGroupEmail">
-            <Frm.Label className="fw-bolder">Email address</Frm.Label>
-            <Frm.Control value={userData.email} onChange={handleEmailInput} type="text" placeholder="Email or Username" />
-          </Frm.Group>
-          <Frm.Group className="mb-3" controlId="formGroupPassword">
-            <Frm.Label className=" fw-bolder">Password</Frm.Label>
-            <Frm.Control type="password" value={userData.password} onChange={handlePasswordInput} placeholder="Password" />
-          </Frm.Group>
-          {
-            auth.error ? <Alert className="d-flex justify-content-center align-items-center" style={{height:'10px'}}variant='danger'>{auth.error}</Alert>: ""
-          }
-          <Button className="w-100" variant="primary" type="submit">
-            Login
-          </Button>
-        </Frm>
+        {
+          signupForm ?
+          <>
+          <h3 className="text-center playwrite-de-grund ls-5 my-5">Sign up</h3>
+          <Frm onSubmit={handleFormSubmit} className="form-container border p-5">
+            <Frm.Group className="mb-3" controlId="formGroupEmail">
+              <Frm.Label className="fw-bolder">Email address</Frm.Label>
+              <Frm.Control name="email" value={userData.email} onChange={handleUserInput}  placeholder="Email" />
+            </Frm.Group>
+            <Frm.Group className="mb-3" controlId="formGroupUsername">
+              <Frm.Label className="fw-bolder">Username</Frm.Label>
+              <Frm.Control name="username" value={userData.username} onChange={handleUserInput}  placeholder="Username" />
+            </Frm.Group>
+            <Frm.Group className="mb-3" controlId="formGroupPassword">
+              <Frm.Label className=" fw-bolder">Password</Frm.Label>
+              <Frm.Control name="password" type="password" value={userData.password} onChange={handleUserInput} placeholder="Password" />
+            </Frm.Group>
+            {
+              auth.error ? <Alert className="d-flex justify-content-center align-items-center" style={{height:'10px'}}variant='danger'>{auth.error}</Alert>: ""
+            }
+            <Button className="w-100" variant="primary" type="submit">
+              Signup
+            </Button>
+            <a onClick={() => setSignupForm(false)}className="my-3 text-secondary">Login</a>
+          </Frm>
+          </> :
+          <>
+          <h3 className="text-center playwrite-de-grund ls-5 my-5">Log in to continue</h3>
+          <Frm onSubmit={handleFormSubmit} className="form-container border p-5">
+            <Frm.Group className="mb-3" controlId="formGroupEmail">
+              <Frm.Label className="fw-bolder">Email address</Frm.Label>
+              <Frm.Control name="email" value={userData.email} onChange={handleUserInput} placeholder="Email or Username" />
+            </Frm.Group>
+            <Frm.Group className="mb-3" controlId="formGroupPassword">
+              <Frm.Label className=" fw-bolder">Password</Frm.Label>
+              <Frm.Control name="password" type="password" value={userData.password} onChange={handleUserInput} placeholder="Password" />
+            </Frm.Group>
+            {
+              auth.error ? <Alert className="d-flex justify-content-center align-items-center" style={{height:'10px'}}variant='danger'>{auth.error}</Alert>: ""
+            }
+            <Button className="w-100" variant="primary" type="submit">
+              Login
+            </Button>
+            <a onClick={() => setSignupForm(true)}className="my-3 text-secondary">Sign up</a>
+          </Frm>
+          </>
+        }
       </div>
     </div>
     </>

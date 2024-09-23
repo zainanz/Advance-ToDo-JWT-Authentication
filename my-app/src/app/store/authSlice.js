@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import Cookies from 'js-cookie';
 import { addTodo, deleteTodo, loadtodo, markAsCompleted } from "./todoSlice";
+import { useLocation } from "react-router-dom";
+
 const initialState = {
   user:{
 
@@ -9,6 +11,7 @@ const initialState = {
   token: null,
   error: null
 }
+
 
 
 export const checkUser = createAsyncThunk("auth/checkUser", async (_, {dispatch}) => {
@@ -34,9 +37,20 @@ export const checkUser = createAsyncThunk("auth/checkUser", async (_, {dispatch}
 })
 
 
+const successLogin = (state, action) => {
+  console.log(state, action)
+  state.user = JSON.parse(action.payload.user);
+  state.error = null;
+  state.isLoggedIn = true;
+  state.token = action.payload.token;
+  console.log("Login successful", action.payload);
+}
 
 const handleAuthError = (state, action) => {
-  state.error = "Unable to verify, please login again" || 'An error occurred';
+  if (!(action.error.message === "token is undefined")){
+
+    state.error = action.error.message || 'An error occurred';
+  }
   state.user = {};
   state.isLoggedIn = false;
   state.token = null;
@@ -44,9 +58,10 @@ const handleAuthError = (state, action) => {
 
 };
 
-export const login = createAsyncThunk('auth/login', async (userData) => {
+
+export const signup = createAsyncThunk('auth/signup', async (userData) => {
   console.log(userData)
-  const response = await fetch("http://localhost:3000/login", {
+  const response = await fetch("http://localhost:3000/signup", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -64,6 +79,25 @@ export const login = createAsyncThunk('auth/login', async (userData) => {
   return data;
 });
 
+export const login = createAsyncThunk('auth/login', async (userData) => {
+  console.log(userData)
+  const response = await fetch("http://localhost:3000/login", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userData),
+  });
+
+  if (!response.ok) {
+    const data = await response.json();
+    throw new Error(data.error);
+  }
+  const data = await response.json();
+  Cookies.set('token', data.token);
+  return data;
+});
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -72,6 +106,7 @@ const authSlice = createSlice({
       state.user = {}
       state.isLoggedIn = false
       state.token = null
+      state.error = ""
       Cookies.remove('token');
     },
     setUser(state, action){
@@ -86,19 +121,17 @@ const authSlice = createSlice({
       .addCase(deleteTodo.rejected, handleAuthError)
       .addCase(markAsCompleted.rejected, handleAuthError)
       .addCase(checkUser.rejected, handleAuthError)
-      .addCase(login.fulfilled, (state, action) => {
-        console.log(state, action)
-        state.user = JSON.parse(action.payload.user);
-        state.error = null;
-        state.isLoggedIn = true;
-        state.token = action.payload.token;
-        console.log("Login successful", action.payload);
-      })
+      .addCase(login.fulfilled, successLogin)
+      .addCase(signup.fulfilled, successLogin)
       .addCase(login.rejected, (state, action) => {
         state.error = action.error.message;
       })
+      .addCase(signup.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
   },
-});
+  },
+);
 
 export const { logout, setUser } = authSlice.actions;
 export default authSlice.reducer;
