@@ -1,4 +1,3 @@
-import { useRef, useEffect } from "react";
 import { useSelector } from "react-redux"
 import { lazy } from "react";
 //Styling
@@ -9,20 +8,17 @@ import PendingTodo from "./components/pending/pendingtodo";
 import CompletedList from "./components/completed/completedlist";
 const PieChart = lazy(() => import("./components/chart/piechart"));
 export default function ShowTodo(){
-  const pendingRef = useRef(null);
-  const chartRef = useRef(null);
-  const completedRef = useRef(null);
   const todos = useSelector(state => state.todo);
 
   return (
     <div className="d-flex flex-column align-items-center">
-      <div className="appear" ref={completedRef}>
+      <div className="appear">
         <CompletedList data={todos.todos.filter( todo => todo.completed)} />
       </div>
-      <div className="appear" ref={pendingRef}>
+      <div className="appear">
         <PendingTodo data={todos.todos.filter( todo => !todo.completed)}/>
       </div>
-      <div className="appear" ref={chartRef}>
+      <div className="appear">
         <PieChart  />
       </div>
     </div>

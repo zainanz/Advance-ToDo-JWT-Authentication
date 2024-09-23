@@ -2,22 +2,13 @@ import "../color.css"
 import "./todo.css"
 import AddTodo from  "./components/addtodo/addtodo.js"
 import ShowTodo from "./components/showtodo/showtodo.js"
-import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
+import { useEffect } from "react"
+
 
 export default function Todo(){
-  const [authCheck, setAuthCheck] = useState(false);
-  const navigate = useNavigate();
+
   const auth = useSelector(state => state.auth)
-  useEffect( () => {
-    if(!auth.isLoggedIn){
-      navigate("/")
-    } else {
-      setAuthCheck(true);
-    }
-  }, [])
-  if (!authCheck) return (<h1>Loading</h1>)
   return (
     <div>
       <h1 className="text-center my-5 sofadi-one-regular"> Manage your daily tasks </h1>

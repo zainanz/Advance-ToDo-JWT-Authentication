@@ -7,4 +7,14 @@ class ApplicationController < ActionController::API
       return token
     end
   end
+
+  def retreive_user
+    begin
+      token = extract_token
+      payload = JWT.decode(token, Rails.application.credentials.jwt_key_base)
+      @user = User.find(payload.first["user_id"])
+    rescue StandardError => e
+      render json: { error: e }, status: :unauthorized
+    end
+  end
 end

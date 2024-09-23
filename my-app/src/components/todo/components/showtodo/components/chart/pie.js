@@ -1,7 +1,8 @@
-import { Pie } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 
 export default function ShowChart({chartData}){
-  return (<Pie
+
+  return (<Doughnut
         data={chartData}
         options={{
           responsive: true,

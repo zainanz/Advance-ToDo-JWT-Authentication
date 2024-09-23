@@ -12,11 +12,16 @@ export const loadtodo = createAsyncThunk( "todo/loadtodo", async (_, {dispatch})
     }
   })
   const data = await response.json()
-  dispatch(setUserTodo(data))
+  if(response.ok) {
+    dispatch(setUserTodo(data))
+    return
+  } else {
+    throw new Error("Unauthorized: Please login again.");
+  }
 })
 
 
-export const markAsCompleted = createAsyncThunk("todo/markAsCompleted", async (id) => {
+export const markAsCompleted = createAsyncThunk("todo/markAsCompleted", async (id, {dispatch}) => {
 const token =  Cookies.get('token');
 
   const response = await fetch(`http://localhost:3000/markascompleted/${id}`, {
@@ -26,11 +31,15 @@ const token =  Cookies.get('token');
     'Authorization': `Bearer ${token}`,
     }
   });
-  return id
+  if(response.ok) {
+    return id
+  } else {
+    throw new Error("Unauthorized: Please login again.");
+  }
 })
 
 
-export const deleteTodo = createAsyncThunk("todo/deleteTodo", async (id) => {
+export const deleteTodo = createAsyncThunk("todo/deleteTodo", async (id, {dispatch}) => {
   const token =  Cookies.get('token');
 
     const response = await fetch(`http://localhost:3000/deletetodo/${id}`, {
@@ -40,7 +49,11 @@ export const deleteTodo = createAsyncThunk("todo/deleteTodo", async (id) => {
       'Authorization': `Bearer ${token}`,
       }
     });
-    return id
+    if(response.ok) {
+      return id
+    } else {
+      throw new Error("Unauthorized: Please login again.");
+    }
   })
 
 
@@ -58,12 +71,14 @@ export const addTodo = createAsyncThunk("todo/addTodo", async (content, {dispatc
     })
   })
   const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.error)
+  }
   return data
 })
 
 
 const initialState = {
-  isRendering: true,
   todos: [
 
   ]
@@ -74,8 +89,9 @@ export const todoSlice = createSlice({
   initialState,
   reducers: {
     setUserTodo(state, action){
-      action.payload.todos.forEach(todo => state.todos.push(todo))
-      console.log(state)
+      let temp_todos = []
+      action.payload.todos.forEach(todo => temp_todos.push(todo))
+      state.todos = temp_todos
     },
     addTodo(state, action){
       state.todos.push(action.payload)
@@ -83,14 +99,8 @@ export const todoSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(addTodo.pending, (state) => {
-        state.status = 'pending';
-      })
       .addCase(addTodo.fulfilled, (state, action) => {
         todoSlice.caseReducers.addTodo(state, { payload: action.payload });
-      })
-      .addCase(addTodo.rejected, (state) => {
-        state.status = 'pending';
       })
       .addCase(markAsCompleted.fulfilled, (state, action) => {
         console.log(state)
