@@ -3,6 +3,7 @@ require_relative "boot"
 require "rails"
 # Only include the frameworks relevant for APIs
 require "active_model/railtie"
+require "action_cable/engine"
 require "active_job/railtie"
 require "active_record/railtie"
 require "action_controller/railtie" # We only need ActionController for APIs

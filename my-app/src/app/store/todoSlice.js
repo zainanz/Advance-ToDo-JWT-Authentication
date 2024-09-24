@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 
 export const loadtodo = createAsyncThunk( "todo/loadtodo", async (_, {dispatch}) => {
   const token =  Cookies.get('token');
-  const response = await fetch("http://localhost:3000/gettodo", {
+  const response = await fetch("https://jwt-todo-7c942bb57d7b.herokuapp.com/gettodo", {
     method: "GET",
     headers: {
     'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ export const loadtodo = createAsyncThunk( "todo/loadtodo", async (_, {dispatch})
 export const markAsCompleted = createAsyncThunk("todo/markAsCompleted", async (id, {dispatch}) => {
 const token =  Cookies.get('token');
 
-  const response = await fetch(`http://localhost:3000/markascompleted/${id}`, {
+  const response = await fetch(`https://jwt-todo-7c942bb57d7b.herokuapp.com/markascompleted/${id}`, {
     method: "POST",
     headers: {
     'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ const token =  Cookies.get('token');
 export const deleteTodo = createAsyncThunk("todo/deleteTodo", async (id, {dispatch}) => {
   const token =  Cookies.get('token');
 
-    const response = await fetch(`http://localhost:3000/deletetodo/${id}`, {
+    const response = await fetch(`https://jwt-todo-7c942bb57d7b.herokuapp.com/deletetodo/${id}`, {
       method: "delete",
       headers: {
       'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ export const deleteTodo = createAsyncThunk("todo/deleteTodo", async (id, {dispat
 export const addTodo = createAsyncThunk("todo/addTodo", async (content, {dispatch}) => {
   console.log(JSON.stringify(content))
   const token =  Cookies.get('token');
-  const response = await fetch("http://localhost:3000/addtodo", {
+  const response = await fetch("https://jwt-todo-7c942bb57d7b.herokuapp.com/addtodo", {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',

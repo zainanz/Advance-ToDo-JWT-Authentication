@@ -16,7 +16,7 @@ const initialState = {
 export const checkUser = createAsyncThunk("auth/checkUser", async (_, {dispatch}) => {
   const token = Cookies.get('token');
   if (token.length < 1) throw new Error("Invalid User Session")
-  const response = await fetch(`http://localhost:3000/verify/user`, {
+  const response = await fetch(`https://jwt-todo-7c942bb57d7b.herokuapp.com/verify/user`, {
     method: "POST",
     headers: {
     'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const handleAuthError = (state, action) => {
 
 export const signup = createAsyncThunk('auth/signup', async (userData) => {
   console.log(userData)
-  const response = await fetch("http://localhost:3000/signup", {
+  const response = await fetch("https://jwt-todo-7c942bb57d7b.herokuapp.com/signup", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ export const signup = createAsyncThunk('auth/signup', async (userData) => {
 
 export const login = createAsyncThunk('auth/login', async (userData) => {
   console.log(userData)
-  const response = await fetch("http://localhost:3000/login", {
+  const response = await fetch("https://jwt-todo-7c942bb57d7b.herokuapp.com/login", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

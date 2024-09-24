@@ -25,7 +25,7 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
   config.jwt do |jwt|
-    jwt.secret = Rails.application.credentials.fetch(:jwt_key_base)
+    jwt.secret = Rails.application.config.jwt_secret_base = ENV['JWT_SECRET_BASE']
     jwt.dispatch_requests = [
       ['POST', %r{^/login$}]
     ]
