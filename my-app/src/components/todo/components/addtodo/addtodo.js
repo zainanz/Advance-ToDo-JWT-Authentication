@@ -27,7 +27,7 @@ export default function AddTodo(){
 
   useEffect( () => {
     dispatch(loadtodo())
-  }, [dispatch])
+  }, [])
 
   return (
     <div className="d-flex justify-content-center py-5">

@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import ShowChart from "./pie";
+import { Chart, ArcElement } from 'chart.js';
 import { useSelector } from "react-redux";
 export default function PieChart(){
   const todo = useSelector(state => state.todo);
   const completedTodo = todo.todos.filter( todo => todo.completed).length
   const pendingTodo = todo.todos.filter( todo => !todo.completed).length
+  Chart.register(ArcElement)
   const [chartData, setChartData] = useState({
     labels: ["Completed", "Pending"],
     datasets: [
@@ -43,7 +45,7 @@ export default function PieChart(){
           }
         ]
       })
-    }, [completedTodo, pendingTodo, todo.todos])
+    }, [todo.todos])
 
   if (todo.todos.length < 1) return
   return (
