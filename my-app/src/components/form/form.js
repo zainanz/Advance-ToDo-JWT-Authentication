@@ -53,7 +53,7 @@ export default function Form(){
         clearInterval(interval);
       };
       }
-    }, [auth.isLoggedIn]);
+    }, [auth, auth.isLoggedIn, navigate]);
 
 
   if (auth.isLoggedIn) {
