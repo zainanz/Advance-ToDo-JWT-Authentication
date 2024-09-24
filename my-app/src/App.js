@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { Outlet, useLocation, useNavigate} from 'react-router-dom';
 import { checkUser } from "./app/store/authSlice";
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Navbar from "./components/navbar/navbar"
 import { useDispatch, useSelector } from "react-redux";
 

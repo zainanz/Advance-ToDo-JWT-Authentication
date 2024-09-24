@@ -4,7 +4,6 @@ import "../color.css"
 import { logout } from "../../app/store/authSlice";
 import { useNavigate } from "react-router-dom"
 function Navbar(){
-  const auth = useSelector(state => state.auth)
   const navigate = useNavigate();
   const userdata = useSelector( state => state.auth)
   const dispatch = useDispatch();

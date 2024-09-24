@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import Cookies from 'js-cookie';
 import { addTodo, deleteTodo, loadtodo, markAsCompleted } from "./todoSlice";
-import { useLocation } from "react-router-dom";
 
 const initialState = {
   user:{

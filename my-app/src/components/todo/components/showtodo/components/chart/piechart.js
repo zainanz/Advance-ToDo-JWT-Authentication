@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import Chart from "chart.js/auto";
-import { CategoryScale } from "chart.js";
 import ShowChart from "./pie";
 import { useSelector } from "react-redux";
 export default function PieChart(){

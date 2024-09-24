@@ -22,6 +22,7 @@ export default function Form(){
   const auth = useSelector(state => state.auth);
   const navigate = useNavigate();
   const [signupForm, setSignupForm] = useState(false);
+
   // Funcs
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -33,13 +34,8 @@ export default function Form(){
       dispatch(login(userData));
     }
   }
-  // const handlePasswordInput = (e) => {
-  //   setUserData( prev => ({...prev, ['password']:e.target.value}));
-  // }
-  const handleUserInput = (e) => {
-    console.log(e.target)
-    console.log(userData);
 
+  const handleUserInput = (e) => {
     setUserData( prev => ({...prev, [e.target.getAttribute("name")]:e.target.value}));
   }
 
@@ -104,7 +100,7 @@ export default function Form(){
             <Button className="w-100" variant="primary" type="submit">
               Signup
             </Button>
-            <a onClick={() => setSignupForm(false)}className="my-3 text-secondary">Login</a>
+            <span onClick={() => setSignupForm(false)}className="my-3 text-secondary">Login</span>
           </Frm>
           </> :
           <>
@@ -124,7 +120,7 @@ export default function Form(){
             <Button className="w-100" variant="primary" type="submit">
               Login
             </Button>
-            <a onClick={() => setSignupForm(true)}className="my-3 text-secondary">Sign up</a>
+            <span onClick={() => setSignupForm(true)}className="my-3 text-secondary">Sign up</span>
           </Frm>
           </>
         }
