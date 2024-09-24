@@ -45,7 +45,7 @@ export default function PieChart(){
           }
         ]
       })
-    }, [todo.todos])
+    }, [completedTodo, pendingTodo, todo.todos])
 
   if (todo.todos.length < 1) return
   return (
