@@ -21,7 +21,7 @@ function App() {
       }
     }
     verifyUser();
-  }, [auth.isLoggedIn]);
+  }, [auth.isLoggedIn, dispatch, navigate]);
 
   return (
     <div className="background-svg" style={{ minHeight:'100vh', position:'relative', overflow: 'hidden', boxSizing: 'border-box'}}>
