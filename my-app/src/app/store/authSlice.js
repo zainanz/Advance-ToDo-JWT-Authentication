@@ -94,6 +94,7 @@ const successLogin = (state, action) => {
 }
 
 const handleAuthError = (state, action) => {
+  console.log(action)
   state.error = Object.keys(state.user).length === 0 ? "" : action.error.message
   state.user = {};
   state.isLoggedIn = false;
