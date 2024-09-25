@@ -3,12 +3,14 @@ import "./navbar.css"
 import "../color.css"
 import { logout } from "../../app/store/authSlice";
 import { useNavigate } from "react-router-dom"
+import { resetTodo } from "../../app/store/todoSlice";
 function Navbar(){
   const navigate = useNavigate();
   const userdata = useSelector( state => state.auth)
   const dispatch = useDispatch();
   const handleLogOut = () => {
     dispatch(logout())
+    dispatch(resetTodo())
     navigate("/")
   }
   return (

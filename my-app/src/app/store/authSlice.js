@@ -2,7 +2,7 @@
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import Cookies from 'js-cookie';
-import { addTodo, deleteTodo, loadtodo, markAsCompleted, resetTodo } from "./todoSlice";
+import { addTodo, deleteTodo, loadtodo, markAsCompleted } from "./todoSlice";
 
 const initialState = {
   user:{
@@ -101,7 +101,6 @@ const handleAuthError = (state, action, {dispatch}) => {
   state.isLoggedIn = false;
   state.token = null;
   Cookies.remove('token');
-  dispatch(resetTodo())
 };
 
 
