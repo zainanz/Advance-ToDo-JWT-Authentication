@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import { lazy, useEffect } from "react";
+import { lazy } from "react";
 import { useState } from "react";
 //Styling
 import "./showtodo.css"
