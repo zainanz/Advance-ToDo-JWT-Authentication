@@ -3,7 +3,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.new(username: params[:username], email: params[:email], password: params[:password])
     begin
       @user.save
-      token = JWT.encode({ user_id: @user.id }, Rails.application.credentials.jwt_key_base)
+      token = JWT.encode({ user_id: @user.id }, Rails.application.config.jwt_secret_base)
       render json: { token: token, user: @user.to_json() }, status: :ok
     rescue => e
       render json: { error: e }
