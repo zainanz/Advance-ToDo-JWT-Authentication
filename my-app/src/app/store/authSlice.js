@@ -53,7 +53,7 @@ const handleAuthError = (state, action) => {
   state.user = {};
   state.isLoggedIn = false;
   state.token = null;
-  Cookies.remove('token');
+  // Cookies.remove('token');
 
 };
 
@@ -109,6 +109,7 @@ const authSlice = createSlice({
       Cookies.remove('token');
     },
     setUser(state, action){
+      state.error = ""
       state.isLoggedIn = true;
       state.user = action.payload;
     }
