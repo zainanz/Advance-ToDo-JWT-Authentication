@@ -15,6 +15,7 @@ const initialState = {
 
 export const checkUser = createAsyncThunk("auth/checkUser", async (_, {dispatch}) => {
   const token = Cookies.get('token');
+  console.log(`successfully retrieved the tokenss = ${token}`)
   if (token.length < 1) throw new Error("Invalid User Session")
   const response = await fetch(`https://jwt-todo-7c942bb57d7b.herokuapp.com/verify/user`, {
     method: "POST",
