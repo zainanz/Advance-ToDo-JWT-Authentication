@@ -18,9 +18,9 @@ const initialState = {
 
 // TODO - Use axios (dry code)
 
-export const checkUser = createAsyncThunk("auth/checkUser", async (_, {dispatch}) => {
+export const checkUser = createAsyncThunk("auth/checkUser", async (state, {dispatch}) => {
   const token = Cookies.get('token');
-  if (!token) throw new Error("")
+  if (!token) throw new Error("Unauthorized: Please login again")
   const response = await fetch(`https://jwt-todo-7c942bb57d7b.herokuapp.com/verify/user`, {
     method: "POST",
     credentials: 'include',
@@ -94,7 +94,7 @@ const successLogin = (state, action) => {
 }
 
 const handleAuthError = (state, action) => {
-  state.error = action.error.message
+  state.error = Object.keys(state.user).length === 0 ? "" : action.error.message
   state.user = {};
   state.isLoggedIn = false;
   state.token = null;
