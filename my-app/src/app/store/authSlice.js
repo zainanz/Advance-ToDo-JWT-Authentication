@@ -93,7 +93,7 @@ const successLogin = (state, action) => {
   state.token = action.payload.token;
 }
 
-const handleAuthError = (state, action, {dispatch}) => {
+const handleAuthError = (state, action) => {
   if (!(action.type === "auth/checkUser/rejected")){
     state.error = action.error.message
   }
