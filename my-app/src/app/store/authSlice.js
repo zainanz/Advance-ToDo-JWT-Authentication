@@ -38,6 +38,13 @@ export const checkUser = createAsyncThunk("auth/checkUser", async (_, {dispatch}
 
 
 const successLogin = (state, action) => {
+
+  Cookies.set('token', action.payload.token, {
+    expires: 1,
+    secure: true,
+    sameSite: 'None',
+  });
+
   console.log(state, action)
   state.user = JSON.parse(action.payload.user);
   state.error = null;
@@ -94,7 +101,6 @@ export const login = createAsyncThunk('auth/login', async (userData) => {
     throw new Error(data.error);
   }
   const data = await response.json();
-  Cookies.set('token', data.token);
   return data;
 });
 
