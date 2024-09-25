@@ -1,18 +1,21 @@
 import { useState, useEffect } from "react";
 import ShowChart from "./pie";
-import { Chart, ArcElement } from 'chart.js';
+import Chart from "chart.js/auto";
+import { CategoryScale } from "chart.js";
 import { useSelector } from "react-redux";
+
 export default function PieChart(){
+
   const todo = useSelector(state => state.todo);
   const completedTodo = todo.todos.filter( todo => todo.completed).length
   const pendingTodo = todo.todos.filter( todo => !todo.completed).length
-  Chart.register(ArcElement)
+  Chart.register(CategoryScale);
   const [chartData, setChartData] = useState({
     labels: ["Completed", "Pending"],
     datasets: [
       {
         label: "Tasks Stats",
-        data:  [ 0, 0],
+        data:  [ completedTodo, pendingTodo],
         backgroundColor: [
           "#588157",
           "#e9edc9",

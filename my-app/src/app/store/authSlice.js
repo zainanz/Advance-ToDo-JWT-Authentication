@@ -18,6 +18,7 @@ export const checkUser = createAsyncThunk("auth/checkUser", async (_, {dispatch}
   if (token.length < 1) throw new Error("Invalid User Session")
   const response = await fetch(`https://jwt-todo-7c942bb57d7b.herokuapp.com/verify/user`, {
     method: "POST",
+    credentials: 'include',
     headers: {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`,
@@ -53,7 +54,7 @@ const handleAuthError = (state, action) => {
   state.user = {};
   state.isLoggedIn = false;
   state.token = null;
-  // Cookies.remove('token');
+  Cookies.remove('token');
 
 };
 
@@ -109,7 +110,6 @@ const authSlice = createSlice({
       Cookies.remove('token');
     },
     setUser(state, action){
-      state.error = ""
       state.isLoggedIn = true;
       state.user = action.payload;
     }

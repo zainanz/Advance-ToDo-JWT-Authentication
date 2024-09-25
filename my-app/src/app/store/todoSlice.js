@@ -6,6 +6,7 @@ export const loadtodo = createAsyncThunk( "todo/loadtodo", async (_, {dispatch})
   const token =  Cookies.get('token');
   const response = await fetch("https://jwt-todo-7c942bb57d7b.herokuapp.com/gettodo", {
     method: "GET",
+    credentials: 'include',
     headers: {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`,
@@ -26,6 +27,7 @@ const token =  Cookies.get('token');
 
   const response = await fetch(`https://jwt-todo-7c942bb57d7b.herokuapp.com/markascompleted/${id}`, {
     method: "POST",
+    credentials: 'include',
     headers: {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`,
@@ -44,6 +46,7 @@ export const deleteTodo = createAsyncThunk("todo/deleteTodo", async (id, {dispat
 
     const response = await fetch(`https://jwt-todo-7c942bb57d7b.herokuapp.com/deletetodo/${id}`, {
       method: "delete",
+      credentials: 'include',
       headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
@@ -62,6 +65,7 @@ export const addTodo = createAsyncThunk("todo/addTodo", async (content, {dispatc
   const token =  Cookies.get('token');
   const response = await fetch("https://jwt-todo-7c942bb57d7b.herokuapp.com/addtodo", {
     method: "POST",
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
