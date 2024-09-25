@@ -34,7 +34,7 @@ export default function Form(){
   }
 
   const handleUserInput = (e) => {
-    setUserData( prev => ({...prev, [e.target.getAttribute("name")]:e.target.value}));
+    setUserData( prev => ({...prev, [e.target.getAttribute("name")]: (e.target.getAttribute("name") !== "password" ? e.target.value.toLowerCase() : e.target.value)}));
   }
 
   useEffect(() => {
