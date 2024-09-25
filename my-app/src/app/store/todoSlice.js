@@ -105,6 +105,9 @@ export const todoSlice = createSlice({
     },
     addTodo(state, action){
       state.todos.push(action.payload)
+    },
+    resetTodo(state){
+      state.todos = []
     }
   },
   extraReducers: (builder) => {
@@ -124,5 +127,5 @@ export const todoSlice = createSlice({
   }
 })
 
-export const { setUserTodo } = todoSlice.actions;
+export const { setUserTodo, resetTodo } = todoSlice.actions;
 export default todoSlice.reducer;
