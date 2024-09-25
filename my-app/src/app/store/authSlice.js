@@ -1,3 +1,5 @@
+// Remember to replace fetch with axios > DRY CODE
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import Cookies from 'js-cookie';
 import { addTodo, deleteTodo, loadtodo, markAsCompleted } from "./todoSlice";
@@ -12,6 +14,9 @@ const initialState = {
 }
 
 
+// Fetch Data from backend
+
+// TODO - Use axios (dry code)
 
 export const checkUser = createAsyncThunk("auth/checkUser", async (_, {dispatch}) => {
   const token = Cookies.get('token');
@@ -27,38 +32,12 @@ export const checkUser = createAsyncThunk("auth/checkUser", async (_, {dispatch}
   const data = await response.json();
   if(response.ok){
     const userData = JSON.parse(data.message);
+    console.log()
     dispatch(setUser(userData))
   } else {
     throw new Error(data.error);
   }
 })
-
-
-const successLogin = (state, action) => {
-
-  Cookies.set('token', action.payload.token, {
-    expires: 1,
-    secure: true,
-    sameSite: 'None',
-  });
-
-  state.user = JSON.parse(action.payload.user);
-  state.error = null;
-  state.isLoggedIn = true;
-  state.token = action.payload.token;
-}
-
-const handleAuthError = (state, action) => {
-  if (!(action.error.message === "token is undefined")){
-
-    state.error = action.error.message || 'An error occurred';
-  }
-  state.user = {};
-  state.isLoggedIn = false;
-  state.token = null;
-  Cookies.remove('token');
-
-};
 
 
 export const signup = createAsyncThunk('auth/signup', async (userData) => {
@@ -96,6 +75,34 @@ export const login = createAsyncThunk('auth/login', async (userData) => {
   const data = await response.json();
   return data;
 });
+
+
+// Support Function
+
+const successLogin = (state, action) => {
+
+  Cookies.set('token', action.payload.token, {
+    expires: 1,
+    secure: true,
+    sameSite: 'None',
+  });
+
+  state.user = JSON.parse(action.payload.user);
+  state.error = null;
+  state.isLoggedIn = true;
+  state.token = action.payload.token;
+}
+
+const handleAuthError = (state, action) => {
+  state.error = action.error.message
+  state.user = {};
+  state.isLoggedIn = false;
+  state.token = null;
+  Cookies.remove('token');
+
+};
+
+
 
 const authSlice = createSlice({
   name: "auth",

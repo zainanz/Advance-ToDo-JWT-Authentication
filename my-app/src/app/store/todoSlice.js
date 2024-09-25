@@ -1,10 +1,13 @@
+// Remember to replace fetch with axios > DRY CODE
+
 import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import Cookies from 'js-cookie';
 
+// Todo use axio (dry code)
 
 export const loadtodo = createAsyncThunk( "todo/loadtodo", async (_, {dispatch}) => {
   const token =  Cookies.get('token');
-
+  if(!token) throw new Error("Unauthorized: Please login again.");
   const response = await fetch("https://jwt-todo-7c942bb57d7b.herokuapp.com/gettodo", {
     method: "GET",
     credentials: 'include',
@@ -18,14 +21,14 @@ export const loadtodo = createAsyncThunk( "todo/loadtodo", async (_, {dispatch})
     dispatch(setUserTodo(data))
     return
   } else {
-    throw new Error("Unauthorized: Please login again.");
+    throw new Error("Something went wrong. Please login again.");
   }
 })
 
 
 export const markAsCompleted = createAsyncThunk("todo/markAsCompleted", async (id, {dispatch}) => {
-const token =  Cookies.get('token');
-
+  const token =  Cookies.get('token');
+  if(!token) throw new Error("Unauthorized: Please login again.");
   const response = await fetch(`https://jwt-todo-7c942bb57d7b.herokuapp.com/markascompleted/${id}`, {
     method: "POST",
     credentials: 'include',
@@ -37,14 +40,14 @@ const token =  Cookies.get('token');
   if(response.ok) {
     return id
   } else {
-    throw new Error("Unauthorized: Please login again.");
+    throw new Error("Something went wrong. Please login again.");
   }
 })
 
 
 export const deleteTodo = createAsyncThunk("todo/deleteTodo", async (id, {dispatch}) => {
   const token =  Cookies.get('token');
-
+  if(!token) throw new Error("Unauthorized: Please login again.");
     const response = await fetch(`https://jwt-todo-7c942bb57d7b.herokuapp.com/deletetodo/${id}`, {
       method: "delete",
       credentials: 'include',
@@ -56,14 +59,14 @@ export const deleteTodo = createAsyncThunk("todo/deleteTodo", async (id, {dispat
     if(response.ok) {
       return id
     } else {
-      throw new Error("Unauthorized: Please login again.");
+      throw new Error("Something went wrong. Please login again.");
     }
   })
 
 
 export const addTodo = createAsyncThunk("todo/addTodo", async (content, {dispatch}) => {
   const token =  Cookies.get('token');
-
+  if (!token) throw new Error("Unauthorized: Please login again")
   const response = await fetch("https://jwt-todo-7c942bb57d7b.herokuapp.com/addtodo", {
     method: "POST",
     credentials: 'include',
@@ -77,10 +80,12 @@ export const addTodo = createAsyncThunk("todo/addTodo", async (content, {dispatc
   })
   const data = await response.json();
   if (!response.ok) {
-    throw new Error(data.error)
+    throw new Error("Something went wrong. Please login again.");
   }
   return data
 })
+
+// Seperator comment
 
 
 const initialState = {
