@@ -27,10 +27,8 @@ export default function Form(){
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if(signupForm){
-      console.log("singup")
       dispatch(signup(userData))
     } else {
-      console.log("login")
       dispatch(login(userData));
     }
   }
@@ -41,7 +39,6 @@ export default function Form(){
 
   useEffect(() => {
       if(auth.isLoggedIn){
-        console.log(auth);
         const interval = setInterval(() => {
         setSeconds( prev => prev - 1);
       }, 1000);
@@ -57,7 +54,6 @@ export default function Form(){
 
 
   if (auth.isLoggedIn) {
-    console.log(auth)
     return (
       <div style={{minHeight:'100vh'}} className="d-flex flex-column justify-content-center align-items-center">
         <h1 className="playwrite-de-grund">Welcome back, {auth.user.username}</h1>
@@ -72,7 +68,7 @@ export default function Form(){
 
 
     <div style={{minHeight:'100vh'}} className="d-flex justify-content-evenly align-items-center">
-      <div>
+      <div className="slogon">
        <h1 className="sofadi-one-regular">Sort your <span style={{padding: "0px 10px", backgroundColor: "#CEDF9F"}}>life</span> with us</h1>
         <h5>fulfill your <span  className="sofadi-one-regular fs-3" style={{ padding: "0px 10px", backgroundColor: "#CEDF9F"}}>dreams</span></h5>
       </div>
