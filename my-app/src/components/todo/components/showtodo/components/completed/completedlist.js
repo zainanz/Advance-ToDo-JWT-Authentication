@@ -10,8 +10,8 @@ export default function CompletedList({data}){
               return (
 
                 <div key={todo.id} className="slide-effect my-1 d-flex align-items-center justify-content-between w-100 bg-white px-3"style={{height:'30px'}}>
-                  <span className="playwrite-de-grund text-secondary" style={{width:'200px', whiteSpace: "nowrap", overflow: "scroll" }}>{todo.content}</span>
-                  <span style={{fontSize: "0.8em"}} className="playwrite-de-grund text-secondary">{format(Date.parse(todo.updated_at), 'EEEE, dd MMMM')}</span>
+                  <span className="completed-todo-content playwrite-de-grund text-secondary" style={{width:'200px', whiteSpace: "nowrap", overflowX: "scroll", overflowY:'hidden' }}>{todo.content}</span>
+                  <span style={{fontSize: "0.5em"}} className="playwrite-de-grund text-secondary">{format(Date.parse(todo.updated_at), 'EEEE, dd MMMM')}</span>
                 </div>
               )
             }).reverse()
