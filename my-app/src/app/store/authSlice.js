@@ -94,8 +94,9 @@ const successLogin = (state, action) => {
 }
 
 const handleAuthError = (state, action) => {
-  console.log(action)
-  state.error = Object.keys(state.user).length === 0 ? "" : action.error.message
+  if (!(action.type === "auth/checkUser/rejected")){
+    state.error = action.error.message
+  }
   state.user = {};
   state.isLoggedIn = false;
   state.token = null;
