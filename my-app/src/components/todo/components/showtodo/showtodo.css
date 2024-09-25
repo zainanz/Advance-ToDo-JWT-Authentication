@@ -30,7 +30,7 @@
 }
 
 .remove-todo {
-  animation: removetodo 0.4s ease-in;
+  animation: removetodo 0.4s ease-in forwards;
 }
 
 @keyframes slide{

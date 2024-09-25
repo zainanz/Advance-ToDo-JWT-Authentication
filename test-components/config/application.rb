@@ -9,6 +9,7 @@ require "active_record/railtie"
 require "action_controller/railtie" # We only need ActionController for APIs
 require "action_mailer/railtie"
 require "action_mailbox/engine"
+
 require "action_text/engine"
 require "action_view/railtie" # Optional, useful for rendering error pages
 require "sprockets/railtie"

@@ -15,8 +15,6 @@ const initialState = {
 
 export const checkUser = createAsyncThunk("auth/checkUser", async (_, {dispatch}) => {
   const token = Cookies.get('token');
-  console.log(`successfully retrieved the tokenss = ${token}`)
-  if (token.length < 1) throw new Error("Invalid User Session")
   const response = await fetch(`https://jwt-todo-7c942bb57d7b.herokuapp.com/verify/user`, {
     method: "POST",
     credentials: 'include',
@@ -25,10 +23,7 @@ export const checkUser = createAsyncThunk("auth/checkUser", async (_, {dispatch}
     'Authorization': `Bearer ${token}`,
     }
   });
-
   const data = await response.json();
-  console.log(data)
-  console.log(response)
   if(response.ok){
     const userData = JSON.parse(data.message);
     dispatch(setUser(userData))
@@ -46,12 +41,10 @@ const successLogin = (state, action) => {
     sameSite: 'None',
   });
 
-  console.log(state, action)
   state.user = JSON.parse(action.payload.user);
   state.error = null;
   state.isLoggedIn = true;
   state.token = action.payload.token;
-  console.log("Login successful", action.payload);
 }
 
 const handleAuthError = (state, action) => {
@@ -68,7 +61,6 @@ const handleAuthError = (state, action) => {
 
 
 export const signup = createAsyncThunk('auth/signup', async (userData) => {
-  console.log(userData)
   const response = await fetch("https://jwt-todo-7c942bb57d7b.herokuapp.com/signup", {
     method: 'POST',
     headers: {
@@ -88,7 +80,6 @@ export const signup = createAsyncThunk('auth/signup', async (userData) => {
 });
 
 export const login = createAsyncThunk('auth/login', async (userData) => {
-  console.log(userData)
   const response = await fetch("https://jwt-todo-7c942bb57d7b.herokuapp.com/login", {
     method: 'POST',
     headers: {

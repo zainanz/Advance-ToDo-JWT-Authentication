@@ -13,7 +13,7 @@ class Users::SessionsController < Devise::SessionsController
     user = User.find_by(email: params[:email]) || User.find_by(username: params[:email])
 
     if user&.valid_password?(params[:password])
-      token = JWT.encode({ user_id: user.id, exp: 24.hours.from_now.to_i }, Rails.application.credentials.jwt_key_base)
+      token = JWT.encode({ user_id: user.id, exp: 24.hours.from_now.to_i }, Rails.application.config.jwt_secret_base)
       render json: { token: token, user: user.to_json() }, status: :ok
     else
       render json: { error: "Invalid username or password" }, status: :unauthorized
