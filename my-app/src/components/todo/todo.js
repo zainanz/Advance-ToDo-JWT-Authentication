@@ -14,7 +14,7 @@ export default function Todo(){
 
       <h1 className="text-center my-5 sofadi-one-regular"> Manage your daily tasks </h1>
       <AddTodo/>
-      <Suspense fallback={<div className="w-full h-full flex justify-center items-center"><FontAwesomeIcon className="fs-3 loading-animate" icon={faSpinner} /></div>}>
+      <Suspense fallback={<div style={{width:"100%", height:"100%"}} className="d-flex justify-content-center flex-column align-items-center"><FontAwesomeIcon className="fs-5 loading-animate" icon={faSpinner} /> Loading your projects..</div>}>
         <ShowTodo/>
       </Suspense>
     </div>
